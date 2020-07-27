@@ -30,6 +30,7 @@ router.post("/:id", auth, async (req, res) => {
     }
 
     profile.friendRequests.unshift({ user: req.user.id });
+
     await profile.save();
     return res.json(profile);
   } catch (err) {
@@ -46,31 +47,36 @@ router.put("/me/:id", auth, async (req, res) => {
     const profile = await Profile.findOne({
       user: req.user.id,
     }).populate("user", ["name", "avatar"]);
+
     if (!profile)
       return res
         .status(400)
         .json({ msg: "There is no friend schema for this approving user" });
 
     // find the firend request from user_id
-    friendReq = profile.friendRequests.find(
+    const friendReq = profile.friendRequests.find(
       ({ user }) => user.toString() === req.params.id
     );
+
     if (!friendReq)
       return res.status(400).json({ msg: "Friend request not found" });
+
     // approve firend request
-    profile.friends.unshift(friendReq);
+    profile.friends.unshift(friendReq.user);
     // Delete from friend request
     for (let i = 0; i < profile.friendRequests.length; i++) {
       if (profile.friendRequests[i] === friendReq)
         profile.friendRequests.splice(i, 1);
     }
+
     // add me to user_id friends list
-    user_idFriendSchema = await Profile.findOne({ user: req.params.id });
+    const user_idFriendSchema = await Profile.findOne({ user: req.params.id });
     if (!user_idFriendSchema)
       return res
         .status(400)
         .json({ msg: "There is no friend schema for this requesting user" });
     user_idFriendSchema.friends.unshift(profile.user);
+
     await user_idFriendSchema.save();
     await profile.save();
     res.json(user_idFriendSchema);

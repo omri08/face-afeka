@@ -44,6 +44,7 @@ router.post("/", auth, async (req, res) => {
       { $set: proifleFields },
       { new: true, upsert: true }
     );
+    await profile.save();
     res.json(profile);
   } catch (err) {
     console.error(err.message);

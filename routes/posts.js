@@ -27,6 +27,7 @@ router.post(
         avatar: user.avatar,
         url: req.body.url,
         user: req.user.id,
+        private: req.body.private,
       });
 
       const post = await newPost.save();
