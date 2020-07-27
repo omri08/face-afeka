@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const { check, validationResult } = require("express-validator");
 const normalize = require("normalize-url");
 const User = require("../models/User");
-const Friend = require("../models/Friend");
+
 // @route    POST api/users
 // @desc     Register user
 // @access   Public
@@ -52,16 +52,12 @@ router.post(
         avatar,
         password,
       });
-      friend = new Friend({
-        user,
-      });
 
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
-      await friend.save();
 
       const payload = {
         user: {
