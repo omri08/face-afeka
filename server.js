@@ -23,5 +23,6 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/profile", require("./routes/profile"));
 app.use("/api/posts", require("./routes/posts"));
 app.use("/api/friends", require("./routes/friend"));
+app.use("/api/wall", require("./routes/wall"));
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
