@@ -1,0 +1,12 @@
+@import "./variables.scss";
+.root {
+  color: white;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("../assests/login_background.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+}

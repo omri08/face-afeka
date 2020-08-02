@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const helmet = require("helmet");
+const cors = require("cors");
 
 const connectDB = require("./config/db");
 
@@ -16,6 +17,9 @@ app.use(express.json());
 
 // Connect to database
 connectDB();
+
+// Enable CORS
+app.use(cors());
 
 //Define Routes
 app.use("/api/users", require("./routes/user"));
