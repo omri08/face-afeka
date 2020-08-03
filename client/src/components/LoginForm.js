@@ -2,17 +2,22 @@ import React from "react";
 import logo from "../assests/logo.png";
 import styles from "../styles/LoginForm.module.scss";
 import { Form, Input, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../actions/auth";
 
-function LoginForm({ login }) {
+function LoginForm({ login, isAuthenticated }) {
   const onFinish = ({ email, password }) => {
     login(email, password);
   };
+
+  //Redirect if logged in
+  if (isAuthenticated) {
+    return <Redirect to="/wall" />;
+  }
 
   return (
     <div className={styles.container}>
@@ -72,5 +77,10 @@ function LoginForm({ login }) {
 
 LoginForm.propTypes = {
   login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
-export default connect(null, { login })(LoginForm);
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { login })(LoginForm);

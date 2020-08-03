@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import LoginPage from "./pages/LoginPage";
-import MainPage from "./pages/MainPage";
+import Landing from "./pages/Landing";
 import setAuthToken from "./utils/setAuthToken";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // Redux
@@ -21,10 +20,7 @@ function App() {
     <div className="App">
       <Provider store={store}>
         <Router>
-          <Switch>
-            <Route exact path="/wall" component={MainPage} />
-            <Route path="/" component={LoginPage} />
-          </Switch>
+          <Landing />
         </Router>
       </Provider>
     </div>

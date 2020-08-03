@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../actions/alert";
 import { register } from "../actions/auth";
@@ -9,12 +9,16 @@ import styles from "../styles/RegistrationForm.module.scss";
 import logo from "../assests/logo.png";
 import PropTypes from "prop-types";
 
-const RegistrationForm = ({ setAlert, register }) => {
+const RegistrationForm = ({ setAlert, register, isAuthenticated }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     register(values);
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/dashboard" />;
+  }
 
   return (
     <div className={styles.container}>
@@ -117,6 +121,11 @@ const RegistrationForm = ({ setAlert, register }) => {
 RegistrationForm.propTypes = {
   setAlert: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
 };
-
-export default connect(null, { setAlert, register })(RegistrationForm);
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { setAlert, register })(
+  RegistrationForm
+);
