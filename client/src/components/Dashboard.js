@@ -1,16 +1,20 @@
 import React from "react";
 import styles from "../styles/Dashboard.module.scss";
-
+import Alert from "../components/Alert";
+import { updateProfile } from "../actions/profile";
+import { connect } from "react-redux";
 import { Form, Input, Button } from "antd";
+import PropTypes from "prop-types";
 
-function Dashboard() {
+function Dashboard({ updateProfile }) {
   const onFinish = (values) => {
-    console.log(values);
+    updateProfile(values);
   };
 
   return (
     <div className={styles.container}>
       <h1>Update Profile</h1>
+      <Alert />
       <Form onFinish={onFinish} className={styles.form}>
         <Form.Item name="company" label="Company">
           <Input />
@@ -28,5 +32,8 @@ function Dashboard() {
     </div>
   );
 }
+Dashboard.propTypes = {
+  updateProfile: PropTypes.func.isRequired,
+};
 
-export default Dashboard;
+export default connect(null, { updateProfile })(Dashboard);

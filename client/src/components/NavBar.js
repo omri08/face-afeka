@@ -8,7 +8,7 @@ import { UserAddOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { logout } from "../actions/auth";
 import { connect } from "react-redux";
-
+import { Link } from "react-router-dom";
 function NavBar({ user, logout }) {
   const { Search } = Input;
   if (user.loading) return <div>Loading...</div>;
@@ -22,10 +22,14 @@ function NavBar({ user, logout }) {
       />
       <ul>
         <li>
-          <Avatar src={user.avatar} />
+          <Link to="/dashboard">
+            <Avatar src={user.avatar} />
+          </Link>
         </li>
         <li>{user.name}</li>
-        <li>Home</li>
+        <li>
+          <Link to="/">Home</Link>
+        </li>
         <li className={styles.avatar}>
           <Badge className={styles.badge} count={1}>
             <UserAddOutlined className={styles.icon} />

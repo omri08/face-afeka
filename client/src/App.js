@@ -12,7 +12,6 @@ import "antd/dist/antd.css";
 
 function App() {
   useEffect(() => {
-    setAuthToken(localStorage.token);
     store.dispatch(loadUser());
   }, []);
 

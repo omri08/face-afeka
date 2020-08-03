@@ -7,7 +7,7 @@ const Alert = ({ alerts }) => {
   if (alerts != null && alerts.length > 0) {
     console.log(alerts);
     return alerts.map((alert) => (
-      <AlretAntd type="error" message={alert.msg} key={alert.id} />
+      <AlretAntd type={alert.alertType} message={alert.msg} key={alert.id} />
     ));
   }
   return "";
