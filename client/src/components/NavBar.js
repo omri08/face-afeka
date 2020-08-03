@@ -6,12 +6,12 @@ import { Avatar } from "antd";
 import { Badge } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-import { AudioOutlined } from "@ant-design/icons";
-
+import { logout } from "../actions/auth";
 import { connect } from "react-redux";
 
-function NavBar({ user }) {
+function NavBar({ user, logout }) {
   const { Search } = Input;
+  if (user.loading) return <div>Loading...</div>;
   return (
     <div className={styles.container}>
       <img src={logo} alt="afeka logo" />
@@ -31,7 +31,9 @@ function NavBar({ user }) {
             <UserAddOutlined className={styles.icon} />
           </Badge>
         </li>
-        <li className={styles.logOut}>Log out</li>
+        <li onClick={logout} className={styles.logOut}>
+          Log out
+        </li>
       </ul>
     </div>
   );
@@ -42,7 +44,8 @@ const mapStateToProps = (state) => ({
 });
 
 NavBar.propTypes = {
-  user: PropTypes.object,
+  user: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(NavBar);
+export default connect(mapStateToProps, { logout })(NavBar);

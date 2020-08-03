@@ -1,17 +1,19 @@
 import React from "react";
+import styles from "../styles/Landing.module.scss";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import LoginPage from "./LoginPage";
 import MainPage from "./MainPage";
+import Dashboard from "../components/Dashboard";
 import NavBar from "../components/NavBar";
 import PropTypes from "prop-types";
 
 function Landing({ isAuthenticated }) {
   if (isAuthenticated)
     return (
-      <div className="container">
+      <div className={styles.container}>
         <NavBar />
-        <MainPage />
+        <Dashboard />
       </div>
     );
   else return <LoginPage />;
