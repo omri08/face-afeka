@@ -1,0 +1,48 @@
+@import "./variables.scss";
+
+.container {
+  height: 150px;
+  width: 500px;
+  background-color: white;
+  border-radius: 3px;
+  flex-flow: row wrap;
+  display: flex;
+
+  .header {
+    background-color: #f5f6f7;
+    height: 32px;
+    width: 100%;
+    border-bottom: 1px solid #dddfe2;
+    padding-left: 5px;
+    span {
+      color: #4b4f56;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 14px;
+      padding: 5px;
+    }
+  }
+
+  .text {
+    width: 100%;
+    display: flex;
+    padding-left: 5px;
+    padding-top: 10px;
+  }
+}
+
+.upload-list-inline .ant-upload-list-item {
+  float: left;
+  width: 200px;
+  margin-right: 8px;
+}
+
+.upload-list-inline [class*="-upload-list-rtl"] .ant-upload-list-item {
+  float: right;
+}
+.upload-list-inline .ant-upload-animate-enter {
+  animation-name: uploadAnimateInlineIn;
+}
+.upload-list-inline .ant-upload-animate-leave {
+  animation-name: uploadAnimateInlineOut;
+}

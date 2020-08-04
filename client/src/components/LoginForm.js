@@ -16,7 +16,7 @@ function LoginForm({ login, isAuthenticated }) {
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to="/wall" />;
+    return <Redirect to="/" />;
   }
 
   return (
