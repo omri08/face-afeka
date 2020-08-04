@@ -1,0 +1,38 @@
+@import "./variables.scss";
+
+.container {
+  width: 100%;
+  min-height: 100px;
+  padding: 5px;
+  display: flex;
+  flex-flow: row wrap;
+  background-color: white;
+  margin: 15px 0;
+  border-radius: 6px;
+  .header {
+    width: 100%;
+    display: flex;
+    section {
+      display: flex;
+      flex-direction: column;
+      padding-left: 10px;
+
+      .name {
+        color: $primary-text;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 1.38;
+        cursor: pointer;
+      }
+
+      .time {
+        color: #cccccc;
+        font-size: 12px;
+      }
+    }
+  }
+
+  .text {
+    padding: 5px;
+  }
+}

@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import styles from "../styles/CreatePost.module.scss";
-import { Input } from "antd";
-import { Avatar } from "antd";
-import { Divider } from "antd";
-import setAuthToken from "../utils/setAuthToken";
+import { Input, Avatar, Divider } from "antd";
+import { LockOutlined, UnlockOutlined } from "@ant-design/icons";
 import { connect } from "react-redux";
 import { addPost } from "../actions/post";
 const { TextArea } = Input;
@@ -16,6 +14,10 @@ const CreatePost = ({ name, avatar, addPost }) => {
   });
 
   const onFinish = () => {
+    setFormData((prevState) => ({
+      ...prevState,
+      text: "",
+    }));
     addPost(formData);
   };
 
@@ -27,10 +29,23 @@ const CreatePost = ({ name, avatar, addPost }) => {
     }));
   };
 
+  const onClick = () => {
+    const toggle = formData.private ? false : true;
+    setFormData((prevState) => ({
+      ...prevState,
+      private: toggle,
+    }));
+  };
+
   return (
     <div className={styles.container}>
       <section className={styles.header}>
         <span>Create Post</span>
+        {formData.private ? (
+          <LockOutlined onClick={onClick} className={styles.icon} />
+        ) : (
+          <UnlockOutlined onClick={onClick} className={styles.icon} />
+        )}
       </section>
       <section className={styles.text}>
         <Avatar src={avatar} />

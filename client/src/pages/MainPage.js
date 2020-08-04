@@ -1,12 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import setAuthToken from "../utils/setAuthToken";
 import styles from "../styles/MainPage.module.scss";
 import CreatePost from "../components/CreatePost";
-function MainPage() {
+import Post from "../components/Post";
+
+import { getWall } from "../actions/post";
+import { connect } from "react-redux";
+
+function MainPage({ getWall, loading, posts }) {
+  useEffect(() => {
+    getWall();
+  }, []);
+
+  const showPosts = (posts) => {
+    return posts.map((post) => (
+      <Post name={post.name} text={post.text} avatar={post.avatar} />
+    ));
+  };
+
   return (
     <div className={styles.container}>
       <CreatePost />
+      <div className={styles.posts}>
+        {loading ? "loading..." : showPosts(posts)}
+      </div>
     </div>
   );
 }
+MainPage.propTypes = {
+  getWall: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  posts: PropTypes.array.isRequired,
+};
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  loading: state.post.loading,
+  posts: state.post.posts,
+});
+
+export default connect(mapStateToProps, { getWall })(MainPage);
