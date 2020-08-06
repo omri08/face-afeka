@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Input, Button } from "antd";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { setAlert } from "../actions/alert";
 import { register } from "../actions/auth";
@@ -11,9 +11,11 @@ import PropTypes from "prop-types";
 
 const RegistrationForm = ({ setAlert, register, isAuthenticated }) => {
   const [form] = Form.useForm();
+  const histroy = useHistory();
 
   const onFinish = (values) => {
     register(values);
+    histroy.replace("/dashboard");
   };
 
   if (isAuthenticated) {

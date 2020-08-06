@@ -21,6 +21,7 @@ export const addPost = (formData) => async (dispatch) => {
 export const getWall = () => async (dispatch) => {
   try {
     const res = await api.get("/wall");
+
     dispatch({
       type: GET_POSTS,
       payload: res.data,

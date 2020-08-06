@@ -1,0 +1,18 @@
+@import "./variables.scss";
+
+.container {
+  width: 500px;
+  display: flex;
+  min-height: 100px;
+  padding: 5px;
+  background-color: white;
+  align-self: center;
+  margin-top: 15px;
+  border-radius: 3px;
+  flex-flow: row wrap;
+  h1 {
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

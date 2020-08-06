@@ -53,7 +53,6 @@ export default function (state = initialState, action) {
 
     case AUTH_ERROR:
       return {
-        ...state,
         token: null,
         isAuthenticated: false,
         loading: false,

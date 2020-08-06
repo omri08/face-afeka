@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/NavBar.module.scss";
 import PropTypes from "prop-types";
 import logo from "../assests/logoWhite.png";
@@ -6,16 +6,23 @@ import { Avatar, Badge, Input } from "antd";
 import { UserAddOutlined } from "@ant-design/icons";
 import { logout } from "../actions/auth";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-function NavBar({ user, logout }) {
+import { Link, useHistory } from "react-router-dom";
+function NavBar({ user, logout, loading }) {
   const { Search } = Input;
-  if (user.loading) return <div>Loading...</div>;
+  const histroy = useHistory();
+
+  function exit() {
+    logout();
+    histroy.replace("/");
+  }
+  if (loading) return <div>Loading...</div>;
+
   return (
     <div className={styles.container}>
       <img src={logo} alt="afeka logo" />
       <Search
-        placeholder="search friedns"
-        onSearch={(value) => console.log(value)}
+        placeholder="search friends"
+        onSearch={(value) => histroy.replace(`/search/${value}`)}
         className={styles.search}
       />
       <ul>
@@ -24,7 +31,9 @@ function NavBar({ user, logout }) {
             <Avatar src={user.avatar} />
           </Link>
         </li>
-        <li>{user.name}</li>
+        <li>
+          <Link to="/profile/me">{user.name}</Link>
+        </li>
         <li>
           <Link to="/">Home</Link>
         </li>
@@ -33,7 +42,7 @@ function NavBar({ user, logout }) {
             <UserAddOutlined className={styles.icon} />
           </Badge>
         </li>
-        <li onClick={logout} className={styles.logOut}>
+        <li onClick={exit} className={styles.logOut}>
           Log out
         </li>
       </ul>
@@ -43,11 +52,13 @@ function NavBar({ user, logout }) {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  loading: state.auth.loading,
 });
 
 NavBar.propTypes = {
   user: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, { logout })(NavBar);

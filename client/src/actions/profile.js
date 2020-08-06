@@ -1,4 +1,4 @@
-import { GET_PROFILE, PROFILE_ERROR } from "./types";
+import { PROFILE_ERROR, GET_MY_PROFILE } from "./types";
 import api from "../utils/api";
 import { setAlert } from "./alert";
 
@@ -7,7 +7,7 @@ export const getCurrentProfile = () => async (dispatch) => {
   try {
     const res = await api.get("/profile/me");
     dispatch({
-      type: GET_PROFILE,
+      type: GET_MY_PROFILE,
       payload: res.data,
     });
   } catch (err) {
@@ -24,7 +24,7 @@ export const updateProfile = (formData) => async (dispatch) => {
   try {
     const res = await api.post("/profile", formData);
     dispatch({
-      type: GET_PROFILE,
+      type: GET_MY_PROFILE,
       payload: res.data,
     });
     dispatch(setAlert("Profile Updated", "success"));
