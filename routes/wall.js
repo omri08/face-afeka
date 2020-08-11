@@ -24,17 +24,20 @@ router.get("/", auth, async (req, res) => {
         .json({ msg: "There is no friendList for this user" });
     }
     // find friends posts
-
-    const friendsPosts = await friendsList.reduce(async (arr, friend) => {
-      const posts = await Post.find({ user: friend._id, private: false });
-
-      arr = [...arr, ...posts];
-      return arr;
-    }, []);
+    let friendsPosts = [];
+    for (let i = 0; i < friendsList.length; i++) {
+      const post = await Post.find({
+        user: friendsList[i]._id,
+        private: false,
+      });
+      friendsPosts = [...friendsPosts, ...post];
+      console.log(friendsPosts);
+    }
 
     const result = userPosts.concat(friendsPosts);
     return res.json(result);
   } catch (err) {
+    console.log(err);
     console.error(err.message);
     res.status(500).send("Server Error");
   }

@@ -7,7 +7,7 @@ import { UserAddOutlined } from "@ant-design/icons";
 import { logout } from "../actions/auth";
 import { connect } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
-function NavBar({ user, logout, loading }) {
+function NavBar({ user, logout, loading, profileLoading, myProfile }) {
   const { Search } = Input;
   const histroy = useHistory();
 
@@ -15,7 +15,7 @@ function NavBar({ user, logout, loading }) {
     logout();
     histroy.replace("/");
   }
-  if (loading) return <div>Loading...</div>;
+  if (loading || profileLoading) return <div>Loading...</div>;
 
   return (
     <div className={styles.container}>
@@ -38,7 +38,10 @@ function NavBar({ user, logout, loading }) {
           <Link to="/">Home</Link>
         </li>
         <li className={styles.avatar}>
-          <Badge className={styles.badge} count={1}>
+          <Badge
+            className={styles.badge}
+            count={myProfile.friendRequests.length}
+          >
             <UserAddOutlined className={styles.icon} />
           </Badge>
         </li>
@@ -53,12 +56,16 @@ function NavBar({ user, logout, loading }) {
 const mapStateToProps = (state) => ({
   user: state.auth.user,
   loading: state.auth.loading,
+  profileLoading: state.profile.loading,
+  myProfile: state.profile.myProfile,
 });
 
 NavBar.propTypes = {
   user: PropTypes.object.isRequired,
+  myProfile: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  profileLoading: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, { logout })(NavBar);
