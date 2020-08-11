@@ -32,7 +32,7 @@ function NavBar({ user, logout, loading }) {
           </Link>
         </li>
         <li>
-          <Link to="/profile/me">{user.name}</Link>
+          <Link to={`/profile/${user._id}`}>{user.name}</Link>
         </li>
         <li>
           <Link to="/">Home</Link>

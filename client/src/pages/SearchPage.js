@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import api from "../utils/api";
 import SearchRes from "../components/SearchRes";
 import PropTypes from "prop-types";
@@ -8,12 +8,13 @@ import styles from "../styles/SearchPage.module.scss";
 function SearchPage({ match: { params } }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const searchValue = useMemo(() => params.fields.toLowerCase(), [params]);
 
   async function fetchDataAndFilter() {
     const res = await api.get("/profile");
     setData(
       res.data.filter(({ user: { name } }) =>
-        name.toLowerCase().startsWith(params.fields.toLowerCase())
+        name.toLowerCase().startsWith(searchValue)
       )
     );
     setLoading(false);
@@ -21,7 +22,7 @@ function SearchPage({ match: { params } }) {
 
   useEffect(() => {
     fetchDataAndFilter();
-  }, []);
+  }, [searchValue]);
   if (loading) return <div>loading...</div>;
 
   return (
@@ -39,6 +40,8 @@ function SearchPage({ match: { params } }) {
   );
 }
 
-SearchPage.propTypes = {};
+SearchPage.propTypes = {
+  match: PropTypes.object.isRequired,
+};
 
 export default SearchPage;

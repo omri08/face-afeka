@@ -1,0 +1,40 @@
+@import "./variables.scss";
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "avatar . ."
+    "bio posts posts";
+  width: 800px;
+  min-height: 400px;
+  align-self: center;
+  padding: 15px;
+
+  .avatar {
+    grid-area: avatar;
+    justify-self: center;
+    align-self: center;
+  }
+
+  .bio {
+    grid-area: bio;
+
+    width: 100%;
+    min-height: 100px;
+    max-height: 400px;
+    background-color: white;
+    border-radius: 6px;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .posts {
+    grid-area: posts;
+    justify-self: center;
+    align-self: start;
+    display: flex;
+    flex-direction: column;
+  }
+}
