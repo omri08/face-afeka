@@ -1,6 +1,6 @@
 ## Face - Afeka
 
-Application to share posts between friedns (simple facebook clone).
+Application to share posts between friends (simple facebook clone).
 
 (project created for learning)
 
