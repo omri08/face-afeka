@@ -8,7 +8,7 @@ Application to share posts between friends (simple facebook clone).
 
 **FrontEnd**:
 
-- Hooks
+- React with hooks
 - Redux
 - Sass & Ant Design
 - axios
