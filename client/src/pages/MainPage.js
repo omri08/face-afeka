@@ -14,6 +14,7 @@ function MainPage({ getWall, loading, posts }) {
   }, []);
 
   const showPosts = (posts) => {
+    console.log(posts);
     return posts.map((post) => (
       <Post
         key={post._id}
@@ -21,6 +22,7 @@ function MainPage({ getWall, loading, posts }) {
         text={post.text}
         avatar={post.avatar}
         time={post.date}
+        id={post.user}
       />
     ));
   };

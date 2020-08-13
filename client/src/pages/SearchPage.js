@@ -17,6 +17,7 @@ function SearchPage({ match: { params } }) {
         name.toLowerCase().startsWith(searchValue)
       )
     );
+    console.log(res);
     setLoading(false);
   }
 

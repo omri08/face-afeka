@@ -18,11 +18,12 @@
       padding-left: 10px;
 
       .name {
-        color: $primary-text;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 1.38;
-        cursor: pointer;
+        a {
+          color: $primary-text;
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 1.38;
+        }
       }
 
       .time {

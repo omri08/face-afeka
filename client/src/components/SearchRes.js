@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import api from "../utils/api";
 import styles from "../styles/SearchRes.module.scss";
 import { Button, Avatar, Divider } from "antd";
@@ -15,7 +16,7 @@ function SearchRes({ name, avatar, id, profile, myId, profileLoading }) {
 
   useEffect(() => {
     async function loadHisProfile() {
-      const res = await api.get(`/profile/user/${id}`);
+      const res = await api.get(`/profile/${id}`);
       setHisProfile(res.data);
       setLoading(false);
     }
@@ -69,12 +70,14 @@ function SearchRes({ name, avatar, id, profile, myId, profileLoading }) {
   }
 
   if (loading || profileLoading) return "loading...";
-  console.log(hisProfile, loading);
+
   return (
     <div className={styles.container}>
       <section className={styles.details}>
         <Avatar size={54} src={avatar} />
-        <span className={styles.name}>{name}</span>
+        <span className={styles.name}>
+          <Link to={`/profile/${id}`}>{name}</Link>
+        </span>
         {showButton(id, profile, myId)}
       </section>
       <Divider />
